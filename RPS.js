@@ -1,57 +1,86 @@
- // Configure variables that are needed to access the DOM elements
- (function(){
-    var user = document.querySelector('.userchoice'),
-        computer = document.querySelector('.computerchoice'),
-        startBtn = document.querySelector('.startBtn'),
-        result = document.querySelector('.result'),
-        userchoice,
-        winStates = {Rock: 'Scissors', Paper:'Rock', Scissors: 'Paper'};
-    //This listens for clicks on the 'Play' button to start the game
-    startBtn.addEventListener('click',function(){
-        this.disabled = true;
-        result.innerHTML = '';
-        user.className = "userchoice Rock count-in";
-        computer.className = "computerchoice Rock count-in";
-    });
-    //This listens out for keydown strokes from the user on the keyboard
-    document.addEventListener( 'keydown', function(event){
-        if(event.KeyCode === 82){
-            userchoice = 'Rock';
-        }else if (event.KeyCode === 80){
-            userchoice = 'Paper';
-        }else{
-            userchoice = 'Scissors';
+const options = document.querySelectorAll(".options");
+    let pScore = 0;
+    let cScore = 0;
+    var user = document.querySelector('.userchoice');
+    var computer = document.querySelector('.computerchoice');
+    options.forEach((option) => {
+      option.addEventListener("click", function () {
+        const pInput = this.value;
+
+
+        const cOptions = ["Rock", "Paper", "Scissor"];
+        const cInput = cOptions[Math.floor(Math.random() * 3)]; 
+        user.className = "userchoice  count-in";
+        computer.className = "computerchoice count-in";
+        
+        updateMoves(pInput, cInput);
+        compareInputs(pInput, cInput);
+        updateScore();
+        if(checkWinner()){
+          pScore = cScore= 0;
+          updateScore();
         }
-    })
-    //The main end point when the animation has completed, pick random values for the computer
-    document.addEventListener('animationend', function(){
-        if(!userchoice){ userchoice = getRandomChoice();}
-        startBtn.disabled = false;
-        var computerchoice = getRandomChoice();           
-        user.className = "userchoice " + userchoice;
-        computer.className = "computerchoice " + computerchoice;
-        result.innerHTML = getWinner(userchoice, computerchoice);
-        userchoice = '';
+      });
     });
-    /*
-    Gets a random string from the winning states Object
-    @return string
-    */
-    function getRandomChoice(){
-        return Object.keys(winStates)[Math.floor(Math.random()*3)];
+
+    function updateMoves(pInput, cInput){
+      document.getElementById("p-move").src = `${pInput}.png`;
+      document.getElementById("c-move").src = `${cInput}.png`;    
     }
-    /*
-    Compares the user and computer choice and determines who won
-    @param userchoice String
-    @param computerchoice String
-    @return String
-    */
-    function getWinner(userchoice, computerchoice){
-        if(userchoice ===computerchoice){
-            return "A tie.";
-        } else if (userchoice === winStates[computerchoice]){
-            return "Computer Wins! " + computerchoice + " beats " + userchoice;
+  
+
+
+    function compareInputs(pInput, cInput) {
+      const currentMatch = `${pInput} vs ${cInput}`;
+      if (pInput === cInput) {
+        document.getElementById("result").innerHTML = `${currentMatch} is a Tie`;
+        return;
+      }
+
+      if (pInput === "Rock") {
+        if (cInput === "Scissor") {
+          document.getElementById("result").innerHTML =`${currentMatch} = You Win`;
+          pScore++;
+        } else {
+          document.getElementById("result").innerHTML = `${currentMatch} = Computer Wins`;
+          cScore++;
         }
-        return "You Win! " +  userchoice + " beats " + computerchoice;
+      }
+      //Check for Paper
+      else if (pInput === "Paper") {
+        if (cInput === "Rock") {
+          document.getElementById("result").innerHTML =`${currentMatch} = You Win`;
+          pScore++;
+        } else {
+          document.getElementById("result").innerHTML =`${currentMatch} = Computer Wins`;
+          cScore++;
+        }
+      }
+      //Check for Scissor
+      else {
+        if (cInput === "Paper") {
+          document.getElementById("result").innerHTML =`${currentMatch} = You Win`;
+          pScore++;
+        } else {
+          document.getElementById("result").innerHTML =`${currentMatch} = Computer Wins`;
+          cScore++;
+        }
+      }
     }
-})();    
+
+    function updateScore() {
+      document.getElementById("p-score").textContent = pScore;
+      document.getElementById("c-score").textContent = cScore;
+    }
+
+    function checkWinner() {
+      if (pScore === 5 || cScore === 5) {
+        const winner =
+          pScore === 5
+            ? "You win the game! Congratulations!"
+            : "Computer wins the game! Try again next time!";
+            document.getElementById("result").innerHTML = winner;
+        return true;
+      }
+      return false;
+    }

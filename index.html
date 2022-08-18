@@ -4,29 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500&family=Nunito:ital,wght@1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="RPS.css">
     <title>RPS-Game</title>
+    <link rel="stylesheet" href="RPS.css">
 </head>
 <body>
-    <div class="container">
-
-        <h1> Rock, Paper, Scissor</h1>
-
-        <div class="player">
-            <div class="userchoice Rock "></div>
-            <p>Player 1</p>
-        </div>
-
-        <div class="player">
-            <div class="computerchoice Rock "></div>
-            <p>Computer</p>
-        </div>
-        
-        <div class="result"></div> 
-
-        <button class="startBtn"><b>Play</b></button>             
+  <div class="container">
+    <h1 style="color: rgb(8, 225, 232);"><b>Rock-Paper-Scissor</b></h1>
+    <h2 class="round">5 rounds to be the winner</h2>
+    <h2 id="result"></h2>
+    <h2>  <span class="player1" >Player</span> 
+      <span class="player1" id="p-score">0</span> - <span class="computer1" id="c-score">0</span> <span class="computer1">Computer</span>
+    </h2>
+    <div class="display-moves">
+      <div class="move userchoice ">
+        <img id="p-move" src="rock.png">
+      </div>
+      <div class="separator">VS</div>
+      <div class="move computerchoice " >
+        <img id="c-move" src="rock.png">
+      </div>
     </div>
-    <script src="RPS.js"></script>    
+    <h2 style="color: rgb(103, 182, 110);">Click on the image below to select your move:<h2>
+    <div class="action">
+      <input class="options" type="image" src="rock.png" value="Rock" />
+      <input class="options" type="image" src="paper.png" value="Paper" />
+      <input class="options" type="image" src="scissor.png" value="Scissor" />
+    </div>
+  </div> 
+  <script src="RPS.js"></script>
 </body>
-</html>
+
