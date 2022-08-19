@@ -8,13 +8,20 @@
     <link rel="stylesheet" href="RPS.css">
 </head>
 <body>
-  <div class="container">
-    <h1 style="color: rgb(8, 225, 232);"><b>Rock-Paper-Scissor</b></h1>
-    <h2 class="round">5 rounds to be the winner</h2>
-    <h2 id="result"></h2>
-    <h2>  <span class="player1" >Player</span> 
-      <span class="player1" id="p-score">0</span> - <span class="computer1" id="c-score">0</span> <span class="computer1">Computer</span>
-    </h2>
+    <div class="container">
+      <h1 style="color: rgb(8, 225, 232);"><b>Rock-Paper-Scissor</b></h1>
+      <h2 class="round">5 rounds to be the winner</h2>
+      <h2 id="result"></h2>
+    <div class="competitors">
+      <div  class="player1" >
+        <h2>Player</h2>
+        <p id="p-score">0</p>
+      </div>
+      <div class="computer1">
+        <h2>Computer</h2>
+        <p id="c-score">0</p>   
+      </div>
+    </div>
     <div class="display-moves">
       <div class="move userchoice ">
         <img id="p-move" src="rock.png">
@@ -25,6 +32,7 @@
       </div>
     </div>
     <h2 style="color: rgb(103, 182, 110);">Click on the image below to select your move:<h2>
+      <br>
     <div class="action">
       <input class="options" type="image" src="rock.png" value="Rock" />
       <input class="options" type="image" src="paper.png" value="Paper" />
